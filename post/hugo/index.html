@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="めも">
+<title>HUGO の使い方 - めも</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/logo.png" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">HUGO の使い方</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-04-12">April 12, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<h2 id="install-方法:32ab7241d48fcc174c877413a917f8cf">Install 方法</h2>
+
+<p>go get して デザインテーマを clone する</p>
+
+<pre><code class="language-sh">$ go get -v github.com/spf13/hugo
+$ git clone --recursive http://github.com/spf13/hugoThemes themes
+$ git clone https://github.com/rakuishi/hugo-zen
+</code></pre>
+
+<h2 id="記事の作成:32ab7241d48fcc174c877413a917f8cf">記事の作成</h2>
+
+<p>固定ページ</p>
+
+<pre><code class="language-sh">$ hugo new about.md
+</code></pre>
+
+<p>ブログページ</p>
+
+<pre><code class="language-sh">$ hugo new post/first.md
+</code></pre>
+
+<h2 id="ビルド:32ab7241d48fcc174c877413a917f8cf">ビルド</h2>
+
+<p>ビルドと同時にプレビューする。public 以下に静的HTMLを出力する。</p>
+
+<pre><code class="language-sh">$ hugo server --theme=hugo-zen --buildDrafts --watch
+</code></pre>
+
+<h2 id="デプロイ:32ab7241d48fcc174c877413a917f8cf">デプロイ</h2>
+
+<h3 id="gh-pages-におく:32ab7241d48fcc174c877413a917f8cf">gh-pages におく</h3>
+
+<pre><code class="language-sh">$ git checkout --orphan gh-pages
+
+# Unstage all files
+$ git rm --cached $(git ls-files)
+
+# Grab one file from the master branch so we can make a commit
+$ git checkout master README.md
+
+# gh-pages ブランチにプッシュ
+$ git add .
+$ git commit -m &quot;INIT: initial commit on gh-pages branch&quot;
+$ git push origin gh-pages
+
+# master ブランチに戻る
+$ git checkout master
+
+# Remove the public folder to make room for the gh-pages subtree
+$ rm -rf public
+
+# Add the gh-pages branch of the repository. It will look like a folder named public
+$ git subtree add --prefix=public git@github.com:spencerlyon2/hugo_gh_blog.git gh-pages --squash
+
+# Pull down the file we just committed. This helps avoid merge conflicts
+$ git subtree pull --prefix=public git@github.com:spencerlyon2/hugo_gh_blog.git gh-pages
+
+# Run hugo. Generated site will be placed in public directory (or omit -t ThemeName if you're not using a theme)
+$ hugo -t ThemeName
+
+# public フォルダを gh-pages ブランチにプッシュ
+$ git add -A
+$ git commit -m &quot;Updating site&quot; &amp;&amp; git push origin master
+$ git subtree push --prefix=public git@github.com:spencerlyon2/hugo_gh_blog.git gh-pages
+</code></pre>
+
+<h3 id="個人-組織ページにおく:32ab7241d48fcc174c877413a917f8cf">個人・組織ページにおく</h3>
+
+<p>固定リポジトリ username.github.io にプッシュ</p>
+
+<pre><code class="language-sh">$ cd public
+$ git add -A
+$ git commit -m '$msg'
+$ git push origin master
+</code></pre>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			
+			
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Shigeru All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>

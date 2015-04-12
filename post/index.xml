@@ -6,8 +6,94 @@
     <description>Recent content in Posts on めも</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 12 Apr 2015 10:41:31 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2015 22:08:10 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>HUGO の使い方</title>
+      <link>http://localhost:1313/post/hugo/</link>
+      <pubDate>Sun, 12 Apr 2015 22:08:10 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/hugo/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-方法:32ab7241d48fcc174c877413a917f8cf&#34;&gt;Install 方法&lt;/h2&gt;
+
+&lt;p&gt;go get して デザインテーマを clone する&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ go get -v github.com/spf13/hugo
+$ git clone --recursive http://github.com/spf13/hugoThemes themes
+$ git clone https://github.com/rakuishi/hugo-zen
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;記事の作成:32ab7241d48fcc174c877413a917f8cf&#34;&gt;記事の作成&lt;/h2&gt;
+
+&lt;p&gt;固定ページ&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ hugo new about.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ブログページ&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ hugo new post/first.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;ビルド:32ab7241d48fcc174c877413a917f8cf&#34;&gt;ビルド&lt;/h2&gt;
+
+&lt;p&gt;ビルドと同時にプレビューする。public 以下に静的HTMLを出力する。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ hugo server --theme=hugo-zen --buildDrafts --watch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;デプロイ:32ab7241d48fcc174c877413a917f8cf&#34;&gt;デプロイ&lt;/h2&gt;
+
+&lt;h3 id=&#34;gh-pages-におく:32ab7241d48fcc174c877413a917f8cf&#34;&gt;gh-pages におく&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ git checkout --orphan gh-pages
+
+# Unstage all files
+$ git rm --cached $(git ls-files)
+
+# Grab one file from the master branch so we can make a commit
+$ git checkout master README.md
+
+# gh-pages ブランチにプッシュ
+$ git add .
+$ git commit -m &amp;quot;INIT: initial commit on gh-pages branch&amp;quot;
+$ git push origin gh-pages
+
+# master ブランチに戻る
+$ git checkout master
+
+# Remove the public folder to make room for the gh-pages subtree
+$ rm -rf public
+
+# Add the gh-pages branch of the repository. It will look like a folder named public
+$ git subtree add --prefix=public git@github.com:spencerlyon2/hugo_gh_blog.git gh-pages --squash
+
+# Pull down the file we just committed. This helps avoid merge conflicts
+$ git subtree pull --prefix=public git@github.com:spencerlyon2/hugo_gh_blog.git gh-pages
+
+# Run hugo. Generated site will be placed in public directory (or omit -t ThemeName if you&#39;re not using a theme)
+$ hugo -t ThemeName
+
+# public フォルダを gh-pages ブランチにプッシュ
+$ git add -A
+$ git commit -m &amp;quot;Updating site&amp;quot; &amp;amp;&amp;amp; git push origin master
+$ git subtree push --prefix=public git@github.com:spencerlyon2/hugo_gh_blog.git gh-pages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;個人-組織ページにおく:32ab7241d48fcc174c877413a917f8cf&#34;&gt;個人・組織ページにおく&lt;/h3&gt;
+
+&lt;p&gt;固定リポジトリ username.github.io にプッシュ&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ cd public
+$ git add -A
+$ git commit -m &#39;$msg&#39;
+$ git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>first</title>
