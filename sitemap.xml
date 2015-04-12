@@ -2,8 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://shigeru-kondou.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2015-04-12T22:08:10+09:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/hugo/</loc>
+    <lastmod>2015-04-12T22:08:10+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/first/</loc>
+    <lastmod>2015-04-12T10:41:31+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/about/</loc>
+    <lastmod>2015-04-12T10:36:35+09:00</lastmod>
   </url>
   
 </urlset>
